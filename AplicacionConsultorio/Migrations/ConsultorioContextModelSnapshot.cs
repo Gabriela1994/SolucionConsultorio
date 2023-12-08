@@ -73,30 +73,23 @@ namespace AplicacionConsultorio.Migrations
                     b.ToTable("ObraSocial");
                 });
 
-            modelBuilder.Entity("AplicacionConsultorio.Models.Paciente", b =>
+            modelBuilder.Entity("AplicacionConsultorio.Models.PacienteXObraSocial", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int?>("IdObraSocial")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ObraSocialID")
+                    b.Property<int?>("IdPersona")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonaID")
-                        .HasColumnType("int");
+                    b.Property<string>("detalles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("fecha_registro")
-                        .HasColumnType("datetime2");
+                    b.HasKey("IdObraSocial", "IdPersona");
 
-                    b.HasKey("Id");
+                    b.HasIndex("IdPersona");
 
-                    b.HasIndex("ObraSocialID");
-
-                    b.HasIndex("PersonaID");
-
-                    b.ToTable("Paciente");
+                    b.ToTable("PacienteXObraSocial");
                 });
 
             modelBuilder.Entity("AplicacionConsultorio.Models.Persona", b =>
@@ -187,9 +180,6 @@ namespace AplicacionConsultorio.Migrations
                     b.Property<string>("Nombre_secundario")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RolesID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("Telefono")
                         .HasColumnType("int");
 
@@ -201,8 +191,6 @@ namespace AplicacionConsultorio.Migrations
                     b.HasIndex("EspecialidadID");
 
                     b.HasIndex("GeneroID");
-
-                    b.HasIndex("RolesID");
 
                     b.ToTable("Profesional");
                 });
@@ -224,23 +212,19 @@ namespace AplicacionConsultorio.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("AplicacionConsultorio.Models.Paciente", b =>
+            modelBuilder.Entity("AplicacionConsultorio.Models.PacienteXObraSocial", b =>
                 {
-                    b.HasOne("AplicacionConsultorio.Models.ObraSocial", "ObraSocial")
-                        .WithMany("Pacientes")
-                        .HasForeignKey("ObraSocialID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("AplicacionConsultorio.Models.ObraSocial", null)
+                        .WithMany()
+                        .HasForeignKey("IdObraSocial")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("AplicacionConsultorio.Models.Persona", "Persona")
-                        .WithMany("Pacientes")
-                        .HasForeignKey("PersonaID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("AplicacionConsultorio.Models.Persona", null)
+                        .WithMany()
+                        .HasForeignKey("IdPersona")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("ObraSocial");
-
-                    b.Navigation("Persona");
                 });
 
             modelBuilder.Entity("AplicacionConsultorio.Models.Persona", b =>
@@ -274,10 +258,6 @@ namespace AplicacionConsultorio.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AplicacionConsultorio.Models.Roles", null)
-                        .WithMany("Profesionales")
-                        .HasForeignKey("RolesID");
-
                     b.Navigation("Especialidad");
 
                     b.Navigation("Genero");
@@ -295,21 +275,9 @@ namespace AplicacionConsultorio.Migrations
                     b.Navigation("Profesionales");
                 });
 
-            modelBuilder.Entity("AplicacionConsultorio.Models.ObraSocial", b =>
-                {
-                    b.Navigation("Pacientes");
-                });
-
-            modelBuilder.Entity("AplicacionConsultorio.Models.Persona", b =>
-                {
-                    b.Navigation("Pacientes");
-                });
-
             modelBuilder.Entity("AplicacionConsultorio.Models.Roles", b =>
                 {
                     b.Navigation("Personas");
-
-                    b.Navigation("Profesionales");
                 });
 #pragma warning restore 612, 618
         }

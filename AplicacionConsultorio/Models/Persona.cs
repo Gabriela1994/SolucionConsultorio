@@ -2,11 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace AplicacionConsultorio.Models
 {
     public class Persona
     {
+        
         public int ID { get; set; }
         public string? Nombre { get; set; }
 
@@ -29,7 +31,8 @@ namespace AplicacionConsultorio.Models
         public Genero Genero { get; set; }
         public Roles? Rol { get; set; }
 
-        public List<Paciente> Pacientes { get; set; }
+        public List<ObraSocial> ObraSociales { get; } = new();
+       
 
     }
 }
