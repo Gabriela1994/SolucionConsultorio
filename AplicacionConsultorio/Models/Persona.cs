@@ -31,7 +31,7 @@ namespace AplicacionConsultorio.Models
         public Genero Genero { get; set; }
         public Roles? Rol { get; set; }
 
-        public List<ObraSocial> ObraSociales { get; } = new();
+        public List<ObraSocial> ObraSociales { get; set; }
        
 
     }

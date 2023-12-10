@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AplicacionConsultorio.Data;
 using AplicacionConsultorio.Models;
+using AplicacionConsultorio.Repositorios;
+using static AplicacionConsultorio.ViewModels.PersonasViewModel;
 
 namespace AplicacionConsultorio.Controllers
 {
@@ -20,12 +22,10 @@ namespace AplicacionConsultorio.Controllers
         }
 
         // GET: ManagerPersonas
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var personas = _context.Persona.Include(p => p.Genero);
-            return _context.Persona != null ?
-                        View(personas.ToList()) :
-                          Problem("Entity set 'ConsultorioContext.Persona'  is null.");
+            RepoPacientes pacientes = new RepoPacientes(_context);
+            return View(pacientes.ObtenerListaDePacientes());
         }
 
         // GET: ManagerPersonas/Details/5
