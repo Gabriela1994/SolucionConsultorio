@@ -4,6 +4,7 @@ using AplicacionConsultorio.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AplicacionConsultorio.Migrations
 {
     [DbContext(typeof(ConsultorioContext))]
-    partial class ConsultorioContextModelSnapshot : ModelSnapshot
+    [Migration("20231211233350_CrearProfesionalesYEspecialidad")]
+    partial class CrearProfesionalesYEspecialidad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace AplicacionConsultorio.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Especialidad");
+                    b.ToTable("Especialidades");
                 });
 
             modelBuilder.Entity("AplicacionConsultorio.Models.Genero", b =>
@@ -153,6 +156,9 @@ namespace AplicacionConsultorio.Migrations
                     b.Property<int>("EspecialidadID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("GeneroID")
+                        .HasColumnType("int");
+
                     b.Property<int>("PersonaID")
                         .HasColumnType("int");
 
@@ -163,9 +169,11 @@ namespace AplicacionConsultorio.Migrations
 
                     b.HasIndex("EspecialidadID");
 
+                    b.HasIndex("GeneroID");
+
                     b.HasIndex("PersonaID");
 
-                    b.ToTable("Profesional");
+                    b.ToTable("Profesionales");
                 });
 
             modelBuilder.Entity("AplicacionConsultorio.Models.Roles", b =>
@@ -225,6 +233,10 @@ namespace AplicacionConsultorio.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AplicacionConsultorio.Models.Genero", null)
+                        .WithMany("Profesionales")
+                        .HasForeignKey("GeneroID");
+
                     b.HasOne("AplicacionConsultorio.Models.Persona", "Persona")
                         .WithMany("Profesionales")
                         .HasForeignKey("PersonaID")
@@ -244,6 +256,8 @@ namespace AplicacionConsultorio.Migrations
             modelBuilder.Entity("AplicacionConsultorio.Models.Genero", b =>
                 {
                     b.Navigation("Personas");
+
+                    b.Navigation("Profesionales");
                 });
 
             modelBuilder.Entity("AplicacionConsultorio.Models.Persona", b =>

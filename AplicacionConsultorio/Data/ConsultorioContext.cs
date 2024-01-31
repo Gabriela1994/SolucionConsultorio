@@ -22,10 +22,14 @@ namespace AplicacionConsultorio.Data
 
         public DbSet<Genero> Genero { get; set; }
         public DbSet<Persona> Persona { get; set; }
-        public DbSet<Persona> Roles { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<Profesional> Profesional { get; set; }
+        public DbSet<Especialidad> Especialidad { get; set; }
            
         public DbSet<ObraSocial> ObraSocial { get; set; }
         public DbSet<PacienteXObraSocial> PacienteXObraSocial { get; set; }
+
+
     }
 }
 

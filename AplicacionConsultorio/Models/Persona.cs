@@ -27,12 +27,13 @@ namespace AplicacionConsultorio.Models
         [EmailAddress(ErrorMessage = "Correo electronico invalido")]
         public string? Correo { get; set; }
         public string? Direccion { get; set; }
-
+        
+        public int GeneroId { get; set; }
         public Genero Genero { get; set; }
         public Roles? Rol { get; set; }
-
+        public List<Profesional> Profesionales { get; set; }
         public List<ObraSocial> ObraSociales { get; set; }
-       
+
 
     }
 }

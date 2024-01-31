@@ -20,23 +20,27 @@ namespace AplicacionConsultorio.Repositorios
 
         public List<ListaDePacientes> ObtenerListaDePacientes()
         {
-            List<ListaDePacientes> lista_personas = new List<ListaDePacientes>();  
+            List<ListaDePacientes> lista_personas = new List<ListaDePacientes>();
 
-            lista_personas = (from pac in _context.PacienteXObraSocial
-                              join p in _context.Persona
-                              on pac.IdPersona equals p.ID
-                              join o in _context.ObraSocial
-                              on pac.IdObraSocial equals o.ID
-                              select new ListaDePacientes
-                              {
-                                  Nombre = p.Nombre,
-                                  Apellido = p.Apellido,
-                                  Dni = p.Dni,
-                                  Genero = p.Genero.Nombre,
-                                  Obra_Social = o.Nombre,
+            using (_context)
+            {
+                lista_personas = (from pac in _context.PacienteXObraSocial
+                                  join p in _context.Persona
+                                  on pac.IdPersona equals p.ID
+                                  join o in _context.ObraSocial
+                                  on pac.IdObraSocial equals o.ID
+                                  select new ListaDePacientes
+                                  {
+                                      Nombre = p.Nombre,
+                                      Apellido = p.Apellido,
+                                      Dni = p.Dni,
+                                      Genero = p.Genero.Nombre,
+                                      Obra_Social = o.Nombre,
 
-                              }
-                              ).ToList();
+                                  }
+                                  ).ToList();
+            }
+
 
             return lista_personas;
         }

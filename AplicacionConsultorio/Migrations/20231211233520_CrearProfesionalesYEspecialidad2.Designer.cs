@@ -4,6 +4,7 @@ using AplicacionConsultorio.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AplicacionConsultorio.Migrations
 {
     [DbContext(typeof(ConsultorioContext))]
-    partial class ConsultorioContextModelSnapshot : ModelSnapshot
+    [Migration("20231211233520_CrearProfesionalesYEspecialidad2")]
+    partial class CrearProfesionalesYEspecialidad2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace AplicacionConsultorio.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Especialidad");
+                    b.ToTable("Especialidades");
                 });
 
             modelBuilder.Entity("AplicacionConsultorio.Models.Genero", b =>
@@ -165,7 +168,7 @@ namespace AplicacionConsultorio.Migrations
 
                     b.HasIndex("PersonaID");
 
-                    b.ToTable("Profesional");
+                    b.ToTable("Profesionales");
                 });
 
             modelBuilder.Entity("AplicacionConsultorio.Models.Roles", b =>
