@@ -1,0 +1,42 @@
+﻿@model IEnumerable<AplicacionConsultorio.ViewModels.AgendasViewModel.ListaDeAgendas>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Agendas disponibles</h1>
+
+<p>
+    <a asp-action="Create">Crea una nueva agenda</a>
+</p>
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <h3>Profesionales</h3>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.ID">Editar</a> |*@
+                    @Html.ActionLink("Ver agenda", "Details", new { id=item.Id_profesional })
+                @*<a asp-action="Delete" asp-route-id="@item.ID">Borrar</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

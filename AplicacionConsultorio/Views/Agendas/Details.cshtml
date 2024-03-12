@@ -1,0 +1,41 @@
+﻿@model IEnumerable<AplicacionConsultorio.ViewModels.AgendasViewModel.ListaDeAgendasPorProfesional>
+
+@{
+    ViewData["Title"] = "Details";
+}
+<h3>Agenda semanal de: @ViewBag.Nombre @ViewBag.Apellido, @ViewBag.Especialidad </h3>
+
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <td>Fecha agendada</td>
+            <td>@Html.DisplayNameFor(model => model.Hora_llegada)</td>
+            <td>@Html.DisplayNameFor(model => model.Hora_salida)</td>
+            <td>Acciones</td>
+        </tr>
+    
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model)
+    {
+                <tr>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.FechaInicio) al @Html.DisplayFor(modelItem => item.FechaFinal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hora_llegada)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hora_salida)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id=item.ID })
+                    </td>
+                </tr>
+
+    }
+</tbody>
+</table>

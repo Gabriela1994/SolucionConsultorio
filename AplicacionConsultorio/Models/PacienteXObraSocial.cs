@@ -1,10 +1,4 @@
-﻿using AplicacionConsultorio.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection.Metadata;
+﻿using System.Collections.Generic;
 
 namespace AplicacionConsultorio.Models
 {
@@ -14,9 +8,10 @@ namespace AplicacionConsultorio.Models
 
         public int? IdObraSocial{ get; set; }
         
-        public int? IdPersona { get; set; }
+        public int IdPersona { get; set; }
 
-        public string detalles { get; set; }
+        public string Detalles { get; set; }
+        public List<Turno> Turno { get; set; }
 
     }
     

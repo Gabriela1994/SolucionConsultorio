@@ -1,0 +1,88 @@
+﻿@model AplicacionConsultorio.ViewModels.TurnosViewModel.CrearUnTurno
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Crear un turno</h1>
+
+<h4>Turno</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Dni_paciente" class="control-label">Buscar paciente:</label>
+                <input asp-for="Dni_paciente" type="number" id="dnipaciente" class="form-control" />
+                <span asp-validation-for="Dni_paciente" class="text-danger"></span>
+                <button id="buscarBtn" class="btn-success">Buscar</button>
+            </div>
+            <div id="data-paciente" class="container-md">
+
+    <!-- Aquí se mostrará los datos del paciente -->
+            </div>
+
+        <div class="form-group">
+            <label for="especialidad">Seleccione una especialidad:</label>
+            <select id="especialidad" class="form-control">
+                <option value="">Seleccione una especialidad</option>
+                @foreach (var especialidad in ViewBag.Especialidades)
+                {
+                    <option value="@especialidad.ID">@especialidad.Nombre</option>
+                    
+                }
+            </select>
+        </div>
+
+            <div id='profesionales-container'>
+
+    <!-- Aquí se mostrará la lista de profesionales -->
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Fecha_consulta" class="control-label"></label>
+                <input asp-for="Fecha_consulta" class="form-control" />
+                <span asp-validation-for="Fecha_consulta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Horario" class="control-label"></label>
+                @Html.DropDownList("Horarios", "Selecciona un horario")
+                <span asp-validation-for="Horario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tipo_consulta" class="control-label"></label>
+                @Html.DropDownList("TipoConsulta", "Selecciona el tipo de consulta")
+                <span asp-validation-for="Tipo_consulta" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <label asp-for="Indicaciones_paciente" class="control-label"></label>
+                <input asp-for="Indicaciones_paciente" type="text" class="form-control" />
+                <span asp-validation-for="Indicaciones_paciente" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <label asp-for="Notas" class="control-label"></label>
+                <input asp-for="Notas" type="text" class="form-control" />
+                <span asp-validation-for="Notas" class="text-danger"></span>
+            </div>
+            <br />
+            <br />
+
+
+            <br />
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+        </form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/site.js"></script>
+}

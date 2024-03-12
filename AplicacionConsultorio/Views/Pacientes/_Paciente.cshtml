@@ -1,0 +1,24 @@
+﻿@model AplicacionConsultorio.ViewModels.PacientesViewModel.PacientePorDni;
+@{
+    ViewData["Title"] = "Pacientes";
+}
+
+<div class="form-group">
+    <h5>Paciente encontrado:</h5>
+    <tbody>
+        <table class="table">
+            <tr>
+                <td>Dni:</td>
+                <td>@ViewData["Dni"]</td>
+            </tr>
+            <tr>
+                <td>Nombre:</td>
+                <td>@ViewData["Apellido"]</td>
+            </tr>
+            <tr>
+                <td>Apellido:</td>
+                <td>@ViewData["Nombre"]</td>
+            </tr>
+        </table>
+    </tbody>
+</div>

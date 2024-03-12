@@ -1,0 +1,23 @@
+﻿@model List<SelectListItem>;
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="form-group">
+
+    <div class="form-group">
+        <label for="profesional">Seleccione un profesional:</label>
+        @Html.DropDownList("Profesionales", ViewBag.Profesionales as SelectList, "Seleccione un profesional", new { @class = "form-control" })
+        <span for ="Profesional" class="text-danger"></span>
+    </div>
+
+</div>
+@*    <label for="Profesional">Seleccione un profesional:</label>
+    <select id="profesional" class="form-control">
+        <option value="">Seleccione un profesional</option>
+        @foreach (var prof in ViewBag.Profesionales)
+        {
+            <option value="@prof.ID">@prof.Nombre_profesional @prof.Apellido_profesional</option>
+
+        }
+    </select>*@

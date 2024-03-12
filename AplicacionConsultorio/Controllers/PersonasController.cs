@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AplicacionConsultorio.Repositorios;
 using System;
 using Newtonsoft.Json.Linq;
+using NuGet.Protocol;
 
 namespace AplicacionConsultorio.Controllers
 {
@@ -24,13 +25,8 @@ namespace AplicacionConsultorio.Controllers
         // GET: PersonasController1
         public IActionResult Index()
         {
-            List<Persona> lista_personas = new List<Persona>();
-            Persona persona = new Persona();
-            using (_context)
-            {
-                lista_personas = _context.Persona.ToList();
-            }
-            return View(lista_personas);
+            RepoPersonas personas = new RepoPersonas(_context);
+            return View(personas.ObtenerListaDePersonas());
         }
 
         // GET: PersonasController1/Details/5
@@ -42,8 +38,17 @@ namespace AplicacionConsultorio.Controllers
         // GET: PersonasController1/Create
         public ActionResult Create()
         {
-            ViewBag.GeneroId = new SelectList(_context.Genero, "ID", "Nombre");
-            ViewBag.RolID = new SelectList(_context.Roles, "ID", "Nombre");
+            //ViewBag.GeneroId = new SelectList(_context.Genero, "ID", "Nombre");
+            //ViewBag.RolID = new SelectList(_context.Roles, "ID", "Nombre");
+
+            RepoGeneros generos = new RepoGeneros(_context);
+            var lista_generos = generos.ListaDeGeneros();
+            
+            RepoRoles roles = new RepoRoles(_context);
+            var lista_roles = roles.ListaDeRoles();
+
+            ViewBag.Genero = lista_generos;
+            ViewBag.Roles = lista_roles;
 
             return View();
         }
@@ -51,55 +56,76 @@ namespace AplicacionConsultorio.Controllers
         // POST: PersonasController1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AgregarPersona persona)
+        public ActionResult Create(AgregarPersona persona, string Genero, string Roles)
         {
-            //ViewBag.Genero = new SelectList(_context.Genero, "ID", "Nombre", persona.Genero);
-
-            //ViewBag.Rol = new SelectList(_context.Roles, "ID", "Nombre", persona.Rol);
-            RepoPersonas repoPersonas = new RepoPersonas(_context);
-
-            var prueba_rol = new SelectList(_context.Roles, "ID", "Nombre", persona.Rol);
-            var prueba_genero = new SelectList(_context.Genero, "ID", "Nombre", persona.Genero);
-
-            int id_genero = 0;
-            int id_rol = 0;
-
-            /*
-            foreach(var rol in prueba_rol)
+            if (ModelState.IsValid)
             {
-                id_rol = Convert.ToInt32(rol.Value);
-            }         
+                RepoPersonas repoPersonas = new RepoPersonas(_context);
+
+                var id_genero = Int32.Parse(Genero);
+                var genero = _context.Genero.FirstOrDefault(g => g.ID == id_genero);         //hay que mejorar esto    
             
-            foreach (var generos in prueba_genero)
-            {
-                id_genero = Convert.ToInt32(generos.Value);                
+                var id_rol = Int32.Parse(Roles);
+                var rol = _context.Roles.FirstOrDefault(r => r.ID == id_rol);               //hay que mejorar esto
+
+                persona.Genero = genero;
+                persona.Rol = rol;
+
+                repoPersonas.CrearPersona(persona);
+                return View();
             }
-            */
-
-            repoPersonas.CrearPersona(persona);
-
             return RedirectToAction(nameof(Index));
-            /*
-                var errors = ModelState.Select(x => x.Value.Errors)
-                .Where(y => y.Count > 0)
-                .ToList();
-                return View(persona);
-            */
         }
 
         // GET: PersonasController1/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int Id)
         {
+            RepoPersonas repoPersonas = new RepoPersonas(_context);
+            var persona = repoPersonas.ObtenerPersona(Id);
+            if (persona == null)
+            {
+                return View();
+            }
+
+            RepoGeneros generos = new RepoGeneros(_context);
+            var lista_generos = generos.ListaDeGeneros();
+
+            RepoRoles roles = new RepoRoles(_context);
+            var lista_roles = roles.ListaDeRoles();
+
+            var fecha = repoPersonas.FechaFormateada(Id);
+
+            ViewBag.Persona = persona;
+            ViewBag.Genero = lista_generos;
+            ViewBag.Roles = lista_roles;
+            ViewBag.Fecha = fecha;
+
             return View();
         }
 
         // POST: PersonasController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, AgregarPersona persona, string Genero, String Roles)
         {
             try
             {
+                RepoPersonas repoPersonas = new RepoPersonas(_context);
+
+                if (Genero != null)
+                {
+                    persona.Genero = repoPersonas.DevuelvoGenero(Genero);
+                }
+                persona.Genero = repoPersonas.ObtenerPersonaYDevolverGenero(id);
+
+                if (Roles != null)
+                {
+                    persona.Rol = repoPersonas.DevuelvoRol(Roles);
+                }
+                persona.Rol = repoPersonas.ObtenerPersonaYDevolverRol(id);
+
+
+                repoPersonas.EditarPersona(persona, id);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -111,7 +137,9 @@ namespace AplicacionConsultorio.Controllers
         // GET: PersonasController1/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            //RepoPersonas repoPersonas = new RepoPersonas(_context);
+            //repoPersonas.EliminarPersona(id);
+            return View("Index");
         }
 
         // POST: PersonasController1/Delete/5

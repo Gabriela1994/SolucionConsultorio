@@ -8,7 +8,6 @@ namespace AplicacionConsultorio.Models
 {
     public class Persona
     {
-        
         public int ID { get; set; }
         public string? Nombre { get; set; }
 
@@ -21,8 +20,8 @@ namespace AplicacionConsultorio.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? Fecha_nacimiento { get; set; }
-        public int? Telefono { get; set; }
-        public int? Celular { get; set; }
+        public string? Telefono { get; set; }
+        public string? Celular { get; set; }
 
         [EmailAddress(ErrorMessage = "Correo electronico invalido")]
         public string? Correo { get; set; }
@@ -31,9 +30,7 @@ namespace AplicacionConsultorio.Models
         public int GeneroId { get; set; }
         public Genero Genero { get; set; }
         public Roles? Rol { get; set; }
-        public List<Profesional> Profesionales { get; set; }
         public List<ObraSocial> ObraSociales { get; set; }
-
-
+        public List<Especialidad> Especialidades { get; set; }   //aqui cambie
     }
 }

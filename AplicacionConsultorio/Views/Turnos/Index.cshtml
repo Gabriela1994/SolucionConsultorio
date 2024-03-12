@@ -1,0 +1,95 @@
+﻿@model IEnumerable<AplicacionConsultorio.ViewModels.TurnosViewModel.ListaDeTurnos>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Todos los turnos</h1>
+
+<p>
+    <a asp-action="Create">Crear un nuevo turno</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha_consulta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Horario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo_consulta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre_paciente)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido_paciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dni_paciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre_profesional)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido_profesional)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Especialidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado_turno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notas)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha_consulta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Horario)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Tipo_consulta)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Nombre_paciente)
+            </td>            
+            <td>
+                    @Html.DisplayFor(modelItem => item.Apellido_paciente)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Dni_paciente)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Nombre_profesional)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Apellido_profesional)
+            </td>            
+            <td>
+                    @Html.DisplayFor(modelItem => item.Especialidad)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Estado_turno)
+            </td>            
+            <td>
+                    @Html.DisplayFor(modelItem => item.Notas)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
