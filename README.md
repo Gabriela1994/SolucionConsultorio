@@ -1,6 +1,6 @@
 <h1>Proyecto de agenda y turnos para rubro médico.</h1>
 
-<h5>*En desarrollo*</h5>
+*En desarrollo*
 
 Funcionalidades creadas hasta el momento:
 <ul>
