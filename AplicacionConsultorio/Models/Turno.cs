@@ -12,8 +12,6 @@ namespace AplicacionConsultorio.Models
         public Estado_turno Estado_turno { get; set; }
         public DateTime Fecha_consulta { get; set; }
         public Horario Horario { get; set; }
-        public string Indicaciones_paciente { get; set; }
-        public string Notas { get; set; }
 
     }
 }

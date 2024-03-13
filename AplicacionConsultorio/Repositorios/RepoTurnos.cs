@@ -43,8 +43,7 @@ namespace AplicacionConsultorio.Repositorios
                                     Apellido_paciente = pacientes.Apellido,
                                     Dni_paciente = pacientes.Dni,
                                     Estado_turno = estado.Nombre,
-                                    Tipo_consulta = tipo.Nombre,
-                                    Notas = turno.Notas                                    
+                                    Tipo_consulta = tipo.Nombre                                  
                                 }).ToList();
 
             }
@@ -63,9 +62,7 @@ namespace AplicacionConsultorio.Repositorios
                     Horario = data.Horarios,
                     Tipo_consulta = data.TipoConsulta,
                     Estado_turno = data.EstadoTurno,
-                    Fecha_consulta = data.Fecha_consulta,
-                    Notas = data.Notas,
-                    Indicaciones_paciente = data.Indicaciones_paciente
+                    Fecha_consulta = data.Fecha_consulta
                 };
 
                 _context.Turno.Add(turno);

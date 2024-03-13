@@ -72,8 +72,6 @@ namespace AplicacionConsultorio.ViewModels
             [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
             public DateTime Fecha_consulta { get; set; }
             public string Horario { get; set; }
-            public string Notas { get; set; }
-            public string Indicaciones_paciente { get; set; }
 
 
 
