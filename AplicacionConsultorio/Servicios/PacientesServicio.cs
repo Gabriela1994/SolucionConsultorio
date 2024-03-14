@@ -18,7 +18,7 @@ namespace AplicacionConsultorio.Servicios
 
         public PacientePorDni EncontrarPaciente(int dni)
         {
-
+            
             RepoPacientes repoPacientes = new RepoPacientes(_context);
             var paciente_encontrado = repoPacientes.BuscarPacientePorDni(dni);
             return paciente_encontrado;

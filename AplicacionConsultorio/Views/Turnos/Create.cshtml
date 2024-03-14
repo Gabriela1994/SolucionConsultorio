@@ -4,9 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Crear un turno</h1>
+<h1>Portal de turnos</h1>
 
-<h4>Turno</h4>
+<h4>Crear un turno</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,15 +15,20 @@
 
             <div class="form-group">
                 <label asp-for="Dni_paciente" class="control-label">Buscar paciente:</label>
-                <input asp-for="Dni_paciente" type="number" id="dnipaciente" class="form-control" />
+                <input asp-for="Dni_paciente" type="number" id="dnipaciente" class="form-control" required />
                 <span asp-validation-for="Dni_paciente" class="text-danger"></span>
-                <button id="buscarBtn" class="btn btn-success">Buscar</button>
-            </div>
-            <br />
-            <div id="data-paciente" class="container-md">
+@*                <button id="buscarBtn" class="btn btn-success">Buscar</button>*@
+                <!-- Button trigger modal -->
+                <button onclick="validarInput()" type="button" id="buscarBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Buscar
+                </button>
 
-    <!-- Aquí se mostrará los datos del paciente -->
-            </div>
+                <div id="modal-prueba">
+
+                </div>
+                <!-- Modal -->
+
+
 
         <div class="form-group">
             <label for="especialidad">Seleccione una especialidad</label>
@@ -72,4 +77,5 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script src="~/js/site.js"></script>
+
 }

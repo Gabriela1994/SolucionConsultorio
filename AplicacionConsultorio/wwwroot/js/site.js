@@ -33,3 +33,44 @@ $(document).ready(function(){
         }
     }); // Aquí cerramos correctamente la función click
 });
+
+
+const myModal = document.getElementById('staticBackdrop')
+const myInput = document.getElementById('dnipaciente')
+const prueba = document.getElementById('modal-prueba')
+
+    //myModal.addEventListener('shown.bs.modal', () => {
+    //    myInput.focus()
+    //})
+
+function validarInput() {
+    if (myInput.value.trim() === '') {
+        alert('Por favor ingrese un valor en el campo.');
+    } else {
+        const insertar_modal = document.createElement("div")
+
+        insertar_modal.innerHTML = `
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Paciente encontrado:</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="data-paciente" class="container-md">
+
+                                    <!-- Aquí se mostrará los datos del paciente -->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+
+        prueba.appendChild(insertar_modal);
+    }
+}

@@ -156,8 +156,7 @@ namespace AplicacionConsultorio.Repositorios
 
             return lista_profesionales;
         }        
-        public FechasProfesionalPorAgenda ListaHorariosDelProfesionalEnLaAgenda(int id_profesional, DateTime fechaInicio, DateTime fechaSalida)
-
+        public FechasProfesionalPorAgenda ListaHorariosDelProfesionalEnLaAgenda(int id_profesional)
         {
             var fecha_profesional = new FechasProfesionalPorAgenda();
 
@@ -171,6 +170,7 @@ namespace AplicacionConsultorio.Repositorios
                                      Fecha_inicial = ag.FechaInicio,
                                      Fecha_final = ag.FechaFinal
                                  }).FirstOrDefault();
+
             return fecha_profesional;
         }
         
