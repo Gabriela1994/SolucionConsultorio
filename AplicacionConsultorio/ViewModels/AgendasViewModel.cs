@@ -111,5 +111,19 @@ namespace AplicacionConsultorio.ViewModels
                 Nombre_completo = nombre + apellido;
             }
         }
+
+        public class FechasProfesionalPorAgenda
+        {
+            public int IdProfesional { get; set; }
+            public DateTime Fecha_inicial { get; set; }
+            public DateTime Fecha_final { get; set; }
+
+            // Método para validar las fechas de llegada y salida
+            public bool ValidarFechas()
+            {
+                // Se realiza una validación simple para asegurarse de que la fecha de salida sea posterior a la fecha de llegada
+                return Fecha_final > Fecha_inicial;
+            }
+        }
     }
 }

@@ -99,10 +99,5 @@ namespace AplicacionConsultorio.ViewModels
             public string Apellido_profesional { get; set; }
 
         }
-
-        public class ListaProfesionales
-        {
-            public List<ProfesionalesTurno> profesionales { get; set; }
-        }
     }
 }

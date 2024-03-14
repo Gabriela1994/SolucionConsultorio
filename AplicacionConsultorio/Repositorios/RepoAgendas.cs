@@ -138,7 +138,7 @@ namespace AplicacionConsultorio.Repositorios
 
             return lista_profesionales;
         }
-        public List<ProfesionalesTurno> ListaDeProfesionalesConAgendaPorEspecialidad(int especialidad)
+        public List<ProfesionalesTurno> ListaDeProfesionalesConAgendaPorEspecialidad(int id_especialidad)
 
         {
             var lista_profesionales = new List<ProfesionalesTurno>();
@@ -146,7 +146,7 @@ namespace AplicacionConsultorio.Repositorios
             lista_profesionales = (from ag in _context.Agenda
                                    join profesional in _context.ProfesionalXEspecialidad on ag.Profesional.IdPersona equals profesional.IdPersona
                                    join persona in _context.Persona on profesional.IdPersona equals persona.ID
-                                   where profesional.IdEspecialidad == especialidad
+                                   where profesional.IdEspecialidad == id_especialidad
                                    select new ProfesionalesTurno
                                    {
                                        ID = profesional.IdPersona,
@@ -155,6 +155,23 @@ namespace AplicacionConsultorio.Repositorios
                                    }).ToList();
 
             return lista_profesionales;
+        }        
+        public FechasProfesionalPorAgenda ListaHorariosDelProfesionalEnLaAgenda(int id_profesional, DateTime fechaInicio, DateTime fechaSalida)
+
+        {
+            var fecha_profesional = new FechasProfesionalPorAgenda();
+
+            fecha_profesional = (from ag in _context.Agenda
+                                 join profesional in _context.ProfesionalXEspecialidad on ag.Profesional.IdPersona equals profesional.IdPersona
+                                 join persona in _context.Persona on profesional.IdPersona equals persona.ID
+                                 where persona.ID == id_profesional
+                                 select new FechasProfesionalPorAgenda
+                                 {
+                                     IdProfesional = persona.ID,
+                                     Fecha_inicial = ag.FechaInicio,
+                                     Fecha_final = ag.FechaFinal
+                                 }).FirstOrDefault();
+            return fecha_profesional;
         }
         
     }
