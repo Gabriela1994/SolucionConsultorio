@@ -41,6 +41,18 @@ namespace AplicacionConsultorio.Controllers
             return View(data_agenda);
         }
 
+        [HttpGet]
+        public IActionResult FechasDeProfesionales(int idProfesional)
+        {
+            RepoAgendas repoAgendas = new RepoAgendas(_context);
+            var fechas_profesionales = repoAgendas.ListaHorariosDelProfesionalEnLaAgenda(idProfesional);
+
+            ViewBag.FechaInicio = fechas_profesionales.Fecha_inicial;
+            ViewBag.FechaLimite = fechas_profesionales.Fecha_final;
+
+            return PartialView("_FechasAgenda", fechas_profesionales);
+        }
+
         // GET: AgendasController/Create
         public ActionResult Create()
         {

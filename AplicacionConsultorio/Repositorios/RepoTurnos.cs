@@ -2,6 +2,7 @@
 using AplicacionConsultorio.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static AplicacionConsultorio.ViewModels.TurnosViewModel;
@@ -21,8 +22,6 @@ namespace AplicacionConsultorio.Repositorios
         {
             List<ListaDeTurnos> lista_turnos = new List<ListaDeTurnos>();
 
-            using (_context)
-            {
                 lista_turnos = (from turno in _context.Turno
                                 join pa in _context.PacienteXObraSocial on turno.Paciente.IdPersona equals pa.IdPersona
                                 join pro in _context.ProfesionalXEspecialidad on turno.Profesional.IdPersona equals pro.IdPersona
@@ -46,7 +45,6 @@ namespace AplicacionConsultorio.Repositorios
                                     Tipo_consulta = tipo.Nombre                                  
                                 }).ToList();
 
-            }
             return lista_turnos;
         }
 
@@ -69,6 +67,14 @@ namespace AplicacionConsultorio.Repositorios
                 _context.SaveChanges();
 
             }
+        }
+
+        public bool FechaDisponible(DateTime fechaConsulta)
+        {
+            var turnosExistentes = ObtenerDatosTurno();
+            // Verificar si existe algún turno para la fecha de consulta
+            bool fechaDisponible = !turnosExistentes.Any(turno => turno.Fecha_consulta.Date == fechaConsulta.Date);
+            return fechaDisponible;
         }
     }
 }

@@ -7,9 +7,11 @@
 
     <div class="form-group">
         <label for="profesional">Seleccione un profesional:</label>
-        @Html.DropDownList("Profesionales", ViewBag.Profesionales as SelectList, "Seleccione un profesional", new { @class = "form-control" })
+        @Html.DropDownList("Profesionales", ViewBag.Profesionales as SelectList, "Seleccione un profesional", new { @class = "form-control"})
         <span for ="Profesional" class="text-danger"></span>
     </div>
+
+
 
 </div>
 @*    <label for="Profesional">Seleccione un profesional:</label>

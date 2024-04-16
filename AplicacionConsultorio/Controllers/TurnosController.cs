@@ -1,18 +1,12 @@
 ﻿using AplicacionConsultorio.Data;
+using AplicacionConsultorio.Models;
 using AplicacionConsultorio.Repositorios;
 using AplicacionConsultorio.Servicios;
+using AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using static AplicacionConsultorio.ViewModels.TurnosViewModel;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace AplicacionConsultorio.Controllers
 {
@@ -78,11 +72,19 @@ namespace AplicacionConsultorio.Controllers
         {
             try
             {
+                RepoTurnos repoTurnos = new RepoTurnos(_context);
+                bool esta_disponible = repoTurnos.FechaDisponible(values.Fecha_consulta);
 
-                TurnosServicio servicio_turnos = new TurnosServicio(_context);
-                servicio_turnos.CrearTurno(values, Profesionales, Horarios, TipoConsulta);
-
-                return RedirectToAction(nameof(Index));
+                if(esta_disponible == true)
+                {
+                    TurnosServicio servicio_turnos = new TurnosServicio(_context);
+                    servicio_turnos.CrearTurno(values, Profesionales, Horarios, TipoConsulta);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch
             {

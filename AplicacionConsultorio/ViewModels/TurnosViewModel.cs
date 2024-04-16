@@ -39,6 +39,11 @@ namespace AplicacionConsultorio.ViewModels
 
             }
 
+            public string ObtenerDescripcionTurno()
+            {
+                return $"Turno para {Nombre_profesional} - {Nombre_paciente} el {Fecha_consulta.ToShortDateString()} a las {Horario}";
+            }
+
         }
 
         public class CrearUnTurno
@@ -81,14 +86,6 @@ namespace AplicacionConsultorio.ViewModels
             }
         }
 
-        public class IdForaneosCrearTurno
-        {
-            public int Id_profesional { get; set; }
-            public int Id_paciente { get; set; }
-
-
-        }
-
         public class ProfesionalesTurno
         {
             public int ID { get; set; }
@@ -97,6 +94,11 @@ namespace AplicacionConsultorio.ViewModels
             public string Nombre_profesional { get; set; }
             [Display(Name = "Apellido Profesional")]
             public string Apellido_profesional { get; set; }
+
+            public string NombreCompletoProfesional()
+            {
+                return $"{Apellido_profesional} {Nombre_profesional}";
+            }
 
         }
     }

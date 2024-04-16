@@ -1,0 +1,10 @@
+﻿@model AplicacionConsultorio.ViewModels.TurnosViewModel.CrearUnTurno
+@{
+    ViewData["Title"] = "FechasDeProfesionales";
+}
+
+<div class="form-group" id="datetimepicker">
+    <label asp-for="Fecha_consulta" class="control-label">Elija una fecha para la consultaaaa</label>
+    <input asp-for="Fecha_consulta" class="form-control" />
+    <span asp-validation-for="Fecha_consulta" class="text-danger"></span>
+</div>

@@ -134,7 +134,6 @@ namespace AplicacionConsultorio.Controllers
         [HttpGet]
         public ActionResult EncontrarPaciente(int dni)
         {
-            {
                 var dni_parse = Convert.ToString(dni);
 
                 if (dni_parse.Length >= 8)
@@ -156,7 +155,6 @@ namespace AplicacionConsultorio.Controllers
                     return PartialView("_ErrorNumerico", null);
                 }
 
-            }
             return PartialView("_ErrorRegistro", null);
         }
     }

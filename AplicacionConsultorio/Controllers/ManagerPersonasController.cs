@@ -24,8 +24,45 @@ namespace AplicacionConsultorio.Controllers
         // GET: ManagerPersonas
         public IActionResult Index()
         {
-            RepoPacientes pacientes = new RepoPacientes(_context);
-            return View(pacientes.ObtenerListaDePacientes());
+                List<ListaDePacientes> lista_personas = new List<ListaDePacientes>();
+                List<PacienteXObraSocial> lista_personas2 = new List<PacienteXObraSocial>();
+            // List<Producto> lista_producto = new List<Producto>();
+
+            using (_context)
+            {
+                lista_personas = (from pac in _context.PacienteXObraSocial
+                                  join p in _context.Persona
+                                  on pac.IdPersona equals p.ID
+                                  join o in _context.ObraSocial
+                                  on pac.IdObraSocial equals o.ID
+                                  select new ListaDePacientes
+                                  {
+                                      Nombre = p.Nombre,
+                                      Apellido = p.Apellido,
+                                      Dni = p.Dni,
+                                      Genero = p.Genero.Nombre,
+                                      Obra_Social = o.Nombre,
+
+                                  }
+                                  ).ToList();
+
+
+            }
+
+            //    lista_productos = (from p in bd.Producto
+            //                           join c in bd.Categoria
+            //                           on p.id_categoria equals c.id_categoria
+            //                           select p).ToList();
+            //}
+
+            // formula para join:
+
+
+
+
+
+            //RepoPacientes pacientes = new RepoPacientes(_context);
+            return View(lista_personas2);
         }
 
         // GET: ManagerPersonas/Details/5
