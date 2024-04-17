@@ -31,6 +31,7 @@ namespace AplicacionConsultorio.Data
                 .UsingEntity<ProfesionalXEspecialidad>(
                     r => r.HasOne<Especialidad>().WithMany().HasForeignKey(e => e.IdEspecialidad).OnDelete(DeleteBehavior.NoAction),
                     l => l.HasOne<Persona>().WithMany().HasForeignKey(e => e.IdPersona).OnDelete(DeleteBehavior.NoAction)
+
                 );
 
             //modelBuilder.Entity<Persona>()
@@ -42,6 +43,17 @@ namespace AplicacionConsultorio.Data
             modelBuilder.Entity<ProfesionalXEspecialidad>()
             .HasKey(p => p.IdPersona);
 
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+            base.ConfigureConventions(builder);
+            builder.Properties<DateOnly>()
+                .HaveConversion<DateOnlyConverter>()
+                .HaveColumnType("date");
+
+            builder.Properties<TimeOnly>()
+                .HaveConversion<TimeOnlyConverter>();
         }
         public ConsultorioContext(DbContextOptions<ConsultorioContext> options) : base(options)
         {
@@ -59,7 +71,6 @@ namespace AplicacionConsultorio.Data
         public DbSet<Turno> Turno { get; set; }
         public DbSet<Tipo_consulta> Tipo_consulta { get; set; }
         public DbSet<Estado_turno> EstadoTurno { get; set; }
-        public DbSet<Horario> Horario { get; set; }
 
     }
 }

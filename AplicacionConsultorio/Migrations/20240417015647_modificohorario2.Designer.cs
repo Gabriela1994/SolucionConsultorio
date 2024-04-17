@@ -4,6 +4,7 @@ using AplicacionConsultorio.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AplicacionConsultorio.Migrations
 {
     [DbContext(typeof(ConsultorioContext))]
-    partial class ConsultorioContextModelSnapshot : ModelSnapshot
+    [Migration("20240417015647_modificohorario2")]
+    partial class modificohorario2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -282,8 +285,8 @@ namespace AplicacionConsultorio.Migrations
                     b.Property<DateTime>("Fecha_consulta")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("Horario")
-                        .HasColumnType("time");
+                    b.Property<long>("Horario")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("PacienteIdPersona")
                         .HasColumnType("int");

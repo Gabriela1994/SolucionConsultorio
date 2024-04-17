@@ -4,6 +4,7 @@ using AplicacionConsultorio.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AplicacionConsultorio.Migrations
 {
     [DbContext(typeof(ConsultorioContext))]
-    partial class ConsultorioContextModelSnapshot : ModelSnapshot
+    [Migration("20240416224106_AgregarTablas")]
+    partial class AgregarTablas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,6 +125,23 @@ namespace AplicacionConsultorio.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Genero");
+                });
+
+            modelBuilder.Entity("AplicacionConsultorio.Models.Horario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Hora")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Horario");
                 });
 
             modelBuilder.Entity("AplicacionConsultorio.Models.ObraSocial", b =>
@@ -282,8 +302,8 @@ namespace AplicacionConsultorio.Migrations
                     b.Property<DateTime>("Fecha_consulta")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("Horario")
-                        .HasColumnType("time");
+                    b.Property<int>("HorarioId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PacienteIdPersona")
                         .HasColumnType("int");
@@ -297,6 +317,8 @@ namespace AplicacionConsultorio.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("Estado_turnoID");
+
+                    b.HasIndex("HorarioId");
 
                     b.HasIndex("PacienteIdPersona");
 
@@ -373,6 +395,12 @@ namespace AplicacionConsultorio.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AplicacionConsultorio.Models.Horario", "Horario")
+                        .WithMany("Turnos")
+                        .HasForeignKey("HorarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AplicacionConsultorio.Models.PacienteXObraSocial", "Paciente")
                         .WithMany("Turno")
                         .HasForeignKey("PacienteIdPersona")
@@ -393,6 +421,8 @@ namespace AplicacionConsultorio.Migrations
 
                     b.Navigation("Estado_turno");
 
+                    b.Navigation("Horario");
+
                     b.Navigation("Paciente");
 
                     b.Navigation("Profesional");
@@ -408,6 +438,11 @@ namespace AplicacionConsultorio.Migrations
             modelBuilder.Entity("AplicacionConsultorio.Models.Genero", b =>
                 {
                     b.Navigation("Personas");
+                });
+
+            modelBuilder.Entity("AplicacionConsultorio.Models.Horario", b =>
+                {
+                    b.Navigation("Turnos");
                 });
 
             modelBuilder.Entity("AplicacionConsultorio.Models.PacienteXObraSocial", b =>

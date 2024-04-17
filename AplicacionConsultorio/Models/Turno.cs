@@ -11,7 +11,8 @@ namespace AplicacionConsultorio.Models
         public Tipo_consulta Tipo_consulta { get; set; }
         public Estado_turno Estado_turno { get; set; }
         public DateTime Fecha_consulta { get; set; }
-        public Horario Horario { get; set; }
+        public TimeSpan Horario { get; set; }
+
 
     }
 }

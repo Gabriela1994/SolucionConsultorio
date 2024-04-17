@@ -31,10 +31,15 @@ namespace AplicacionConsultorio.ViewModels
             [DataType(DataType.Date)]
             [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
             public DateTime Fecha_consulta { get; set; }
-            public string Horario { get; set; }
+            public TimeSpan Horario { get; set; }
             public string Notas { get; set; }
 
             public ListaDeTurnos()
+            {
+
+            }
+
+            public void DevolverFechas()
             {
 
             }
@@ -53,7 +58,6 @@ namespace AplicacionConsultorio.ViewModels
             public ProfesionalXEspecialidad Profesional { get; set; }
             public Tipo_consulta TipoConsulta { get; set; }
             public Estado_turno EstadoTurno { get; set; }
-            public Horario Horarios { get; set; }
 
             [Display(Name = "Nombre Profesional")]
             public string Nombre_profesional { get; set; }
@@ -76,7 +80,7 @@ namespace AplicacionConsultorio.ViewModels
             [DataType(DataType.Date)]
             [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
             public DateTime Fecha_consulta { get; set; }
-            public string Horario { get; set; }
+            public TimeSpan Horario { get; set; }
 
 
 
@@ -94,12 +98,6 @@ namespace AplicacionConsultorio.ViewModels
             public string Nombre_profesional { get; set; }
             [Display(Name = "Apellido Profesional")]
             public string Apellido_profesional { get; set; }
-
-            public string NombreCompletoProfesional()
-            {
-                return $"{Apellido_profesional} {Nombre_profesional}";
-            }
-
         }
     }
 }

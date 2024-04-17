@@ -2,7 +2,6 @@
 using AplicacionConsultorio.Models;
 using AplicacionConsultorio.Repositorios;
 using AplicacionConsultorio.Servicios;
-using AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -39,14 +38,10 @@ namespace AplicacionConsultorio.Controllers
             RepoEspecialidades especialidades = new RepoEspecialidades(_context);
             var lista_especialidades = especialidades.ListaDeEspecialidades2();
 
-            RepoHorarios horarios = new RepoHorarios(_context);
-            var lista_horarios = horarios.ListaDeHorarios();
-
             RepoTipoConsulta tipo_consulta = new RepoTipoConsulta(_context);
             var lista_tipos = tipo_consulta.ListarTiposDeConsulta();
 
             ViewBag.Especialidades = lista_especialidades;
-            ViewBag.Horarios = lista_horarios;
             ViewBag.TipoConsulta = lista_tipos;
 
             return View();
@@ -72,10 +67,17 @@ namespace AplicacionConsultorio.Controllers
         {
             try
             {
+                values.Especialidad = "1";
+                values.TipoConsulta = null;
+
                 RepoTurnos repoTurnos = new RepoTurnos(_context);
                 bool esta_disponible = repoTurnos.FechaDisponible(values.Fecha_consulta);
 
-                if(esta_disponible == true)
+
+                AgendaServicio servicio = new AgendaServicio(_context);
+                servicio.LogicaParaHorarioTurnos(values);
+
+                if (esta_disponible == true)
                 {
                     TurnosServicio servicio_turnos = new TurnosServicio(_context);
                     servicio_turnos.CrearTurno(values, Profesionales, Horarios, TipoConsulta);

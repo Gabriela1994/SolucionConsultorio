@@ -32,12 +32,6 @@ namespace AplicacionConsultorio.Servicios
             values.Profesional = profesional;
             //_--------profesional listo
 
-            var id_horario = Convert.ToInt32(Horarios);
-            RepoHorarios repoHorarios = new RepoHorarios(_context);
-            var horario = repoHorarios.BuscarHorarioPorId(id_horario);
-            values.Horarios = horario;
-            //_-------horario listo
-
             var tipoConsulta = Convert.ToInt32(TipoConsulta);
             RepoTipoConsulta repoTipoConsulta = new RepoTipoConsulta(_context);
             var tipo = repoTipoConsulta.BuscarTipoConsultaPorId(tipoConsulta);

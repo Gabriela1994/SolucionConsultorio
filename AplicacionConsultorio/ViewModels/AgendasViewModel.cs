@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Reflection.Metadata;
+using NuGet.Packaging.Signing;
 
 namespace AplicacionConsultorio.ViewModels
 {
@@ -36,6 +37,16 @@ namespace AplicacionConsultorio.ViewModels
             [Display(Name = "Duracion de la consulta")]
             public string Duracion_consulta { get; set; }
             public int Id_profesional { get; set; }
+
+            public ListaDeAgendas(TimeSpan hora_llegada, TimeSpan hora_salida)
+            {
+                Hora_salida = hora_salida;
+                Hora_llegada = hora_llegada;
+            }
+            public ListaDeAgendas()
+            {
+
+            }
         }        
         
         
@@ -66,11 +77,13 @@ namespace AplicacionConsultorio.ViewModels
             [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:t}")]
             public TimeSpan Hora_salida { get; set; }
 
-            //[Display(Name = "Día")]
-            public string Dia_semana { get; set; } //Probar esta relacion n:1
-
             [Display(Name = "Duracion de la consulta")]
             public string Duracion_consulta { get; set; }
+
+            public void FechasDisponiblesTurno()
+            {
+                //
+            }
         }
 
         public class CrearAgenda

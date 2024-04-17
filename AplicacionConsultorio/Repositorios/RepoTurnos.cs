@@ -1,7 +1,5 @@
 ﻿using AplicacionConsultorio.Data;
 using AplicacionConsultorio.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +28,10 @@ namespace AplicacionConsultorio.Repositorios
                                 join especialidad in _context.Especialidad on pro.IdEspecialidad equals especialidad.ID
                                 join estado in _context.EstadoTurno on turno.Estado_turno.ID equals estado.ID
                                 join tipo in _context.Tipo_consulta on turno.Tipo_consulta.ID equals tipo.ID
-                                join horario in _context.Horario on turno.Horario.Id equals horario.Id
                                 select new ListaDeTurnos
                                 {
                                     Fecha_consulta = turno.Fecha_consulta,
-                                    Horario = horario.Hora,
+                                    Horario = turno.Horario,
                                     Nombre_profesional = profesionales.Nombre,
                                     Apellido_profesional = profesionales.Apellido,
                                     Especialidad = especialidad.Nombre,
@@ -57,7 +54,7 @@ namespace AplicacionConsultorio.Repositorios
                 {
                     Paciente = data.Paciente,
                     Profesional = data.Profesional,
-                    Horario = data.Horarios,
+                    //Horario = data.Horario,
                     Tipo_consulta = data.TipoConsulta,
                     Estado_turno = data.EstadoTurno,
                     Fecha_consulta = data.Fecha_consulta
@@ -69,12 +66,24 @@ namespace AplicacionConsultorio.Repositorios
             }
         }
 
+        public void BuscarTurnoPorProfesional(int id_profesional, DateTime fecha)
+        {
+
+        }
+
         public bool FechaDisponible(DateTime fechaConsulta)
         {
             var turnosExistentes = ObtenerDatosTurno();
             // Verificar si existe algún turno para la fecha de consulta
             bool fechaDisponible = !turnosExistentes.Any(turno => turno.Fecha_consulta.Date == fechaConsulta.Date);
             return fechaDisponible;
-        }
+        }        
+        //public bool HorarioDisponible(TimeOnly horario)
+        //{
+        //    var turnosExistentes = ObtenerDatosTurno();
+        //    // Verificar si existe algún turno con el mismo horario
+        //    bool horarioDisponible = !turnosExistentes.Any(turno => turno.Horario == horario);
+        //    return horarioDisponible;
+        //}
     }
 }
