@@ -10,3 +10,4 @@ Funcionalidades creadas hasta el momento:
   <li> :bookmark: Modulo Turnos</li>
 </ul>
 
+Este proyecto fue realizado como un ejercicio para entender conceptos y practicar en tiempos libres, el verdadero proyecto de turnos lo pueden encontrar en mi Git con el nombre de "Proyecto-consultorios"
